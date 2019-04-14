@@ -21,6 +21,9 @@ sudo chmod -R 0755 /var/www/html
 
 sudo chown -R root:root ~/SuperbPi
 sudo chown -R 0755 ~/SuperbPi
+sudo chmod +x ~/SuperbPi/mmll.py
+sudo chmod +x ~/SuperbPi/me7lconfig.py
+sudo chmod +x ~/SuperbPi/pylibme7.py
 
 #sudo cp raprec.service /lib/systemd/system
 #sudo chown root:root /lib/systemd/system/raprec.service
