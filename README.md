@@ -1,6 +1,15 @@
 mmll
 ====
 
+
+
+./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt --debug 4
+
+
+
+
+
+
 the Most Minimal Linux Logger
 
 Copyright 2013 Ted Richardson.
