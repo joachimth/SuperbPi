@@ -1,0 +1,217 @@
+    1  ls
+    2  cd SuperbPi
+    3  ls
+    4  mmll.py
+    5  ./mmll.py
+    6  ls -l
+    7  sudo chown +x mmll.py
+    8  chown +x mmll.py
+    9  chown x+ mmll.py
+   10  +x chown mmll.py
+   11  chown mmll.py +x
+   12  chown +X mmll.py
+   13  sudo chown root +x mmll.py
+   14  sudo chown +x
+   15  sudo chown --help
+   16  sudo chown 
+   17  sudo chown -+x 
+   18  sudo chown +x -R
+   19  sudo chown 
+   20  chmod +x mmll.py
+   21  mmll.py
+   22  ./mmll.py
+   23  ls -l
+   24  git pull
+   25  ls
+   26  ./mmll.py -h
+   27  ./mmll.py -c example_log.cfg -o test.txt -d 4
+   28  nano me7lconfig.py
+   29  ./me7lconfig.py -h
+   30  ./me7lconfig.py
+   31  nano cleanstart.sh
+   32  ./cleanstart.sh
+   33  sudo ./cleanstart.sh
+   34  chmod +x ./cleanstart.sh
+   35  sudo ./cleanstart.sh
+   36  ls -l
+   37  ./me7lconfig.py
+   38  ./me7lconfig.py -h
+   39  ./me7lconfig.py example.ecu
+   40  ls
+   41  ./mmll.py -c example_log.cfg -o test.txt -d 4
+   42  nano example_log.cfg
+   43  ./mmll.py -c example_log.cfg -o test.txt -d 4
+   44  ./mmll.py -c ./SuperbPi/example_log.cfg -o test.txt -d 4
+   45  ./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt -d 4
+   46  lsusb
+   47  nano pylibme7.py
+   48  ls
+   49  nano examle.ecu
+   50  ls
+   51  nano example.ecu
+   52  ls
+   53  nano mmll.py
+   54  ./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt -d 4
+   55  ./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt -d3
+   56  ./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt
+   57  ./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt --debug 4
+   58  pip install libftdi1
+   59  pip install libftdi
+   60  pip install ftdi
+   61  pip install ftdi1
+   62  apt-get install libftdi
+   63  apt-get install libftdi1
+   64  pip install pyusb
+   65  ./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt --debug 4
+   66  pip install pylibftdi
+   67  apt-get install ftdi
+   68  apt-get install ftdi1
+   69  apt-get install pyserial
+   70  apt-get install pyusb
+   71  pip install pyserial
+   72  ./mmll.py -c ~/SuperbPi/example_log.cfg -o test.txt --debug 4
+   73  cd ..
+   74  ls
+   75  git clone https://github.com/joachimth/pyobd
+   76  git clone https://github.com/joachimth/pyobdii
+   77  pip install obd
+   78  git clone https://github.com/peterh/pyobd.git
+   79  cd pyobd
+   80  ls
+   81  pyobd
+   82  ./pyobd
+   83  apt-get install wxpython2.4
+   84  apt-get install wxpython-2.4
+   85  apt-get install wx-python-2.4
+   86  pip install pyserial
+   87  apt-get update
+   88  nano obd_io.py
+   89  .(obd_io.py
+   90  ./obd_io.py
+   91  chmod +x obd_io.py
+   92  ./obd_io.py
+   93  ls
+   94  chmod +x obd_sensors.py
+   95  ./obd_sensors.py
+   96  cd ..
+   97  ls
+   98  cd SuperbPi
+   99  ls
+  100  cat test.txt
+  101  ./cleanstart.sh
+  102  cd ..
+  103  git clone https://github.com/joachimth/PureSuperbRapi.git
+  104  cd PureSuperbRapi
+  105  ls
+  106  ./setup.sh
+  107  reboot
+  108  syslogd
+  109  rsyslog
+  110  rsyslogd
+  111  rsyslogd --help
+  112  dmesg | less
+  113  dmsg | less
+  114  dmsg
+  115  apt-get install dmesg
+  116  cd /var/log
+  117  ls
+  118  tail
+  119  tail -f mysql
+  120  tail -f messages
+  121  tail -f debug
+  122  tail -f daemon.log
+  123  tail -f lastlog
+  124  tail -f syslog
+  125  tail -f apache2
+  126  cd apache2
+  127  ls
+  128  tail -f error.log
+  129  cd ~
+  130  ls
+  131  cd PureSuperbRapi
+  132  git pull
+  133  ls
+  134  ./setup.sh
+  135  ls
+  136  tail -f /var/logs/apache2/error.log
+  137  tail -f /var/log/apache2/error.log
+  138  git pull
+  139  ./update.sh
+  140  tail -f /var/log/apache2/error.log
+  141  reboot
+  142  tail -f /var/log/apache2/error.log
+  143  mysql -u root -p
+  144  tail -f /var/log/apache2/error.log
+  145  ls
+  146  cd PureSuperbRapi
+  147  ls
+  148  cat update.sh
+  149  mysql < roadapplepi-configd.sql
+  150  mysql < roadapplepi-configd.sql
+  151  mysql < roadapplepi-configd.sql
+  152  nano roadapplepi-configd.sql
+  153  mysql < roadapplepi-configd.sql
+  154  cat update.sh
+  155  tail -f /var/log/apache2/error.log
+  156  nano roadapplepi-configd.sql
+  157  mysql -u roadapplepi -p roadapplepi < roadapplepi-configd.sql
+  158  mysql -u roadapplepi -p < roadapplepi-configd.sql
+  159  tail -f /var/log/apache2/error.log
+  160  reboot
+  161  tail -f /var/log/apache2/error.log
+  162  sudo apt install lib-bluetooth-dev
+  163  sudo apt install lib-bluetooth
+  164  sudo apt install libbluetooth-dev
+  165  sudo apt install libbluetooth
+  166  lsusb
+  167  ls /var/tty
+  168  ls /var
+  169  ls /
+  170  ls /lib
+  171  ls /lib/modules
+  172  ls /lib/terminfo
+  173  ls /lib/cpp
+  174  ls /lib/hdparm
+  175  ls /lib/init
+  176  ls /lib/init/init-d-script
+  177  ls /dev
+  178  ls
+  179  cd PureSuperbRapi
+  180  ls
+  181  nano raprec.c
+  182  termios
+  183  term
+  184  help
+  185  serial
+  186  cd ..
+  187  ls
+  188  cd SuperbPi
+  189  ls
+  190  nano mmll.py
+  191  ls
+  192  nano pylibme7.py
+  193  minicom
+  194  screen
+  195  screen --help
+  196  man screen
+  197  cu
+  198  stty
+  199  stty --help
+  200  stty --help -v
+  201  stty --help -l
+  202  stty
+  203  stty -f /dev/ttyUSB0
+  204  stty -F /dev/ttyUSB0
+  205  stty -F /dev/ttyUSB0 56000
+  206  stty -F /dev/ttyUSB0 38400
+  207  stty -F /dev/ttyUSB0
+  208  stty -F /dev/ttyUSB0 raw
+  209  stty -F /dev/ttyUSB0
+  210  cat < /dev/ttyUSB0
+  211  cat <> /dev/ttyUSB0
+  212  cat <> /dev/ttyUSB1
+  213  cat /dev/ttyUSB0 --help
+  214  cat /dev/ttyUSB0 --show-all
+  215  lsusb
+  216  history
+  217  history > test.txt
