@@ -4,8 +4,9 @@ import time
 from obd import OBD, Async, commands, Unit, OBDStatus
 
 ports = obd.scan_serial()
-print("Ports avail:\t",ports)
-if(len(ports)>0):
+print(ports)
+resp = input("Do you want to continue? (y)")
+if(resp=="y" and len(ports)>0):
 	print(ports[0])
 	with obd.Async(ports[0],115200,None,False,4) as connection:
 		connection.watch(obd.commands.RPM)
@@ -27,3 +28,4 @@ if(len(ports)>0):
 		connection.stop()
 else:
 	print("Fucked op")
+
