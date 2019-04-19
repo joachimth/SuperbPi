@@ -1,0 +1,6 @@
+obd==0.7.0
+Pint==0.7.2
+pyserial==3.4
+pytz==2018.7
+redis==3.0.1
+tzlocal==1.5.1
