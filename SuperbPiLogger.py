@@ -16,14 +16,20 @@ if(len(ports)>0):
 		connection.watch(obd.commands.ELM_VOLTAGE)
 
 		connection.start()
-		print("ELM Version: ", connection.query(obd.commands.ELM_VERSION))
-		print("ELM Voltage: ", connection.query(obd.commands.ELM_VOLTAGE))
-		print("ECU - Coolant Temp: ", connection.query(obd.commands.COOLANT_TEMP))
-		print("ECU - RPM: ", connection.query(obd.commands.RPM)) # non-blocking, returns immediately
-		print("ECU - Engine Load: ", connection.query(obd.commands.ENGINE_LOAD))
-		print("ECU - Long Fuel Trim: ", connection.query(obd.commands.LONG_FUEL_TRIM_1))
+		with open('testtest.csv','a') as file:
+			ecua = connection.query(obd.commands.COOLANT_TEMP)
+			ecub = connection.query(obd.commands.RPM)
+			file.write('\n%s,%s'%(ecua,ecub))
+		
+						#d = integer, f=float, s=string, b=boolean/binary
+		#print("ELM Version: ", connection.query(obd.commands.ELM_VERSION))
+		#print("ELM Voltage: ", connection.query(obd.commands.ELM_VOLTAGE))
+		#print("ECU - Coolant Temp: ", connection.query(obd.commands.COOLANT_TEMP))
+		#print("ECU - RPM: ", connection.query(obd.commands.RPM)) # non-blocking, returns immediately
+		#print("ECU - Engine Load: ", connection.query(obd.commands.ENGINE_LOAD))
+		#print("ECU - Long Fuel Trim: ", connection.query(obd.commands.LONG_FUEL_TRIM_1))
 
-		time.sleep(60)
+		time.sleep(120)
 		connection.stop()
 else:
 	print("Fucked op")
