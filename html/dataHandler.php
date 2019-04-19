@@ -26,7 +26,7 @@ if($_GET['action'] == "obdLog")
 {
 	if($_GET['min'] == "" || $_GET['max'] == "") die();
 
-	$mysqli = new mysqli('127.0.0.1', 'roadapplepi', 'roadapplepi', 'roadapplepi');
+	$mysqli = new mysqli('127.0.0.1', 'SuperbPi', 'SuperbPi', 'SuperbPi');
 	if ($mysqli->connect_errno) die("[]");
 
 	$limitString = "timestamp >= ".$_GET['min'].($_GET['max'] == 0 ? "" : " and timestamp < ".$_GET['max']);
@@ -35,7 +35,7 @@ if($_GET['action'] == "obdLog")
 	if(!$result = $mysqli->query($sql)) die("[]");
 
 	while($obdEntry = $result->fetch_assoc()) $obdLog[] = $obdEntry;
-	
+
 	$result->free();
 	$mysqli->close();
 
@@ -46,7 +46,7 @@ if($_GET['action'] == "obdLog")
 //Gets latest OBD Information
 if($_GET['action'] == "obdDump" && is_numeric($_GET['timestamp']))
 {
-	$mysqli = new mysqli('127.0.0.1', 'roadapplepi', 'roadapplepi', 'roadapplepi');
+	$mysqli = new mysqli('127.0.0.1', 'SuperbPi', 'SuperbPi', 'SuperbPi');
 	if ($mysqli->connect_errno) die("[]");
 	
 	$sql = "SELECT codes FROM obdCodes ORDER BY timestamp DESC LIMIT 1";
@@ -76,7 +76,7 @@ if($_GET['action'] == "obdStream")
 	header('Content-Type: text/event-stream');
 	header('Cache-Control: no-cache');
 	
-	$mysqli = new mysqli('127.0.0.1', 'roadapplepi', 'roadapplepi', 'roadapplepi');
+	$mysqli = new mysqli('127.0.0.1', 'SuperbPi', 'SuperbPi', 'SuperbPi');
 	if ($mysqli->connect_errno) die("data: []");
 	
 	$result = $mysqli->query("SELECT timestamp from obdLog order by timestamp desc limit 1");
@@ -111,7 +111,7 @@ if($_GET['action'] == "obdCodes")
 {
 	if($_GET['timestamp'] == "") die();
 
-	$mysqli = new mysqli('127.0.0.1', 'roadapplepi', 'roadapplepi', 'roadapplepi');
+	$mysqli = new mysqli('127.0.0.1', 'SuperbPi', 'SuperbPi', 'SuperbPi');
 	if ($mysqli->connect_errno) die("[]");
 
 	$timestamp = $_GET['timestamp'];
@@ -130,7 +130,7 @@ if($_GET['action'] == "obdCodes")
 //Load current settings
 if($_GET['action'] == "currentSettings")
 {
-	$mysqli = new mysqli('127.0.0.1', 'roadapplepi', 'roadapplepi', 'roadapplepi');
+	$mysqli = new mysqli('127.0.0.1', 'SuperbPi', 'SuperbPi', 'SuperbPi');
 	if ($mysqli->connect_errno) die();
 
 	$sql = "SELECT value FROM env WHERE name='currentOBD'";
@@ -167,7 +167,7 @@ if($_GET['action'] == "currentSettings")
 //Get system information
 if($_GET['action'] == "sysInfo")
 {
-	$mysqli = new mysqli('127.0.0.1', 'roadapplepi', 'roadapplepi', 'roadapplepi');
+	$mysqli = new mysqli('127.0.0.1', 'SuperbPi', 'SuperbPi', 'SuperbPi');
 	if ($mysqli->connect_errno) die();
 
 	$sql = "SELECT value FROM env WHERE name='rapVersion'";
@@ -260,7 +260,7 @@ if($_GET['action'] == 'pair')
 	{
 		$toJS = array(true, $_POST['mac']);
 		
-		$mysqli = new mysqli('127.0.0.1', 'roadapplepi', 'roadapplepi', 'roadapplepi');
+		$mysqli = new mysqli('127.0.0.1', 'SuperbPi', 'SuperbPi', 'SuperbPi');
 		$mysqli->query("delete from env where name='currentOBD'");
 		$mysqli->query("insert into env (name, value) values ('currentOBD', '".$mysqli->real_escape_string($_POST['mac'])."')");
 		$mysqli->close();
@@ -272,14 +272,14 @@ if($_GET['action'] == 'pair')
 }
 
 //Power management
-if($_GET['action'] == "shutdown") system("raprun -s");
-if($_GET['action'] == "restart") system("raprun -r");
+if($_GET['action'] == "shutdown") system("sudo reboot --halt");
+if($_GET['action'] == "restart") system("sudo reboot --reboot");
 
 //Sync time with connected device
 if($_GET['action'] == "timeSync" && is_numeric($_GET['timestamp']))
 {
 	$returnCode = 0;
-	system("raprun -n " . $_GET['timestamp'], $returnCode);
+	system("" . $_GET['timestamp'], $returnCode);
 	echo ($returnCode == 0 ? "success" : "fail");
 	exit();
 }
