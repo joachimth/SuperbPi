@@ -15,11 +15,10 @@ echo "...Stopping hostapd and dnsmasq for a while..."
 sudo systemctl disable hostapd dnsmasq
 
 echo "...Setup of a service running at startup..."
-sudo cp ~/SuperbPi/SuperbPi.service /lib/systemd/system
-sudo chown root:root /lib/systemd/system/SuperbPi.service
-sudo chmod 0755 /lib/systemd/system/SuperbPi.service
-sudo systemctl daemon-reload
-sudo systemctl enable SuperbPi
+sudo cp ~/SuperbPi/SuperbPi.py /etc/init.d/SuperbPi.py
+sudo chown root:root /etc/init.d/SuperbPi.py
+sudo chmod 0755 /etc/init.d/SuperbPi.py
+sudo update-rc.d sample.py defaults
 
 echo "...Copying two files for our hotspot solution..."
 sudo cp hostapd.conf /etc/hostapd
