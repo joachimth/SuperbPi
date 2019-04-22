@@ -14,9 +14,9 @@ from obd.protocols import ECU
 from obd.utils import bytes_to_int
 
 
-running_dir         = os.path.dirname(os.path.realpath(__file__))
-default_config_path = os.path.join(running_dir, 'default.rc')
-config_path         = os.path.join(os.path.expanduser('~'), 'pihud.rc')
+#running_dir         = os.path.dirname(os.path.realpath(__file__))
+#default_config_path = os.path.join(running_dir, 'default.rc')
+#config_path         = os.path.join(os.path.expanduser('~'), 'pihud.rc')
 
 def main(filename='~/SuperbPi/logs/log00.csv'):
 	print('Logging	to file: \t',filename)
