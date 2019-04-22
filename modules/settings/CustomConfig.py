@@ -1,6 +1,4 @@
-#! /usr/bin/python3
-# modules/CustomConfig.py
-#version = 0.1
+# /modules/settings/CustomConfig.py
 
 # Author: THIRSBRO
 # Year: 2019
@@ -24,9 +22,9 @@
 # A	SAE J1939 (CAN 29/250)
 
 AppCustomConfig = {
-    "APP_NAME": "SuperbPi",
-    "AUTHOR": "THIRSBRO",
-    "VERSION": "0.1"
+    'APP_NAME': 'SuperbPi',
+    'AUTHOR': 'THIRSBRO',
+    'VERSION': '0.1'
 }
         # Connecting direct to UART pins on RPI. Remember UART=1, and no console at serial.
         # Standard baudrate 38400..Freematics..115200..
@@ -42,12 +40,13 @@ SerialUARTConfig = {
 #    conn = serial.Serial("/dev/ttyAMA0", '115200', '1')
 #    return conn
 
+InitCommands = ["ATZ", "ATS0", "AT@1", "ATSI"]
+
+TestPollSequence = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
 
 # For Superb 1.gen, Protocol 3, 4 and 5 are the most interessting.
 SerialCARConfig = {
-    "Protocol": "3"
-    "InitCommands": ["ATZ", "ATS0", "AT@1", "ATSI"]
-    "TestPollSequence": ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
+    'Protocol': '3'
 }
 
 #if __name__ == '__main__':

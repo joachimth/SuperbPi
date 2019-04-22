@@ -1,5 +1,5 @@
 #! /usr/bin/python3
-# modules/serialcomm.py
+# serialcomm.py
 
 # Author: THIRSBRO
 # Year: 2019
@@ -10,19 +10,25 @@
 #
 
 # It does not seem to be able to auto connect with the ECU, so must be forced with AT SPx
-#
 # always remember \r\n for return and newline. apparently it is needed to set encoding to utf-8
 #
+
 import sys
+sys.path.append("/home/jt/SuperbPi")
+sys.path.append("/home/jt/SuperbPi/modules/settings")
+
 import time
-sys.path.append('settings')
+import serial
+
 import CustomConfig
+
+
 
 #version = 0.1
 
 #print(sercommcfg.SerCfg.port.__str__)
-#SerConn = serial.Serial(sercommcfg.SerCfg())
-SerConn = sercommcfg.ConnectSerial("")
+SerConn = serial.Serial(CustomConfig.SerialUARTConfig)
+#SerConn = CustomConfig..ConnectSerial("")
 
 def SerConnStart():
     try:
