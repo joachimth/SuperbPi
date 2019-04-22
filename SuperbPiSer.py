@@ -5,9 +5,10 @@
 #Year: 2019
 # file paths
 
-import  os
-import  obd # as OBD
-import  time
+import os
+import obd # as OBD
+import time
+import serial
 from obd import OBDCommand, Unit, OBDStatus
 from obd.protocols import ECU
 from obd.utils import bytes_to_int
@@ -40,34 +41,45 @@ def main(filename='~/SuperbPi/logs/log00.csv'):
 			#9	ISO 15765-4 (CAN 29/250)
 			#A	SAE J1939 (CAN 29/250)
 
-			with obd.Async(portstr=ports[0], baudrate='115200', protocol='4', fast=False) as connection:
-				connection.watch(obd.commands.RPM)
-				connection.watch(obd.commands.SPEED)
-				connection.watch(obd.commands.TIMING_ADVANCE)
-				connection.watch(obd.commands.COOLANT_TEMP)
-				connection.watch(obd.commands.ENGINE_LOAD)
-				connection.watch(obd.commands.LONG_FUEL_TRIM_1)
-				connection.watch(obd.commands.SHORT_FUEL_TRIM_1)
-				connection.watch(obd.commands.INTAKE_PRESSURE)
-				#Start connection and let the games begin...
-				connection.start()
-				with	open(filename,'a') as file:
-					ecua = connection.query(obd.commands.RPM)
-					ecub = connection.query(obd.commands.SPEED)
-					ecuc = connection.query(obd.commands.TIMING_ADVANCE)
-					ecud = connection.query(obd.commands.COOLANT_TEMP)
-					ecue = connection.query(obd.commands.ENGINE_LOAD)
-					ecuf = connection.query(obd.commands.LONG_FUEL_TRIM_1)
-					ecug = connection.query(obd.commands.SHORT_FUEL_TRIM_1)
-					ecuh = connection.query(obd.commands.INTAKE_PRESSURE)
-					ecui = ""
-					ecuj = ""
-					ecuk = ""
-					ecul = ""
-					file.write('\n%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s'%(ecua,ecub,ecuc,ecud,ecue,ecuf,ecug,ecuh,ecui,ecuj,ecuk,ecul))
+			ser = serial.Serial("/dev/ttyAMA0", baudrate=115200, timeout=1) 
+			with open(filename,'a') as file:
+				errcont=0
+				while(errcont<8):
+					ser.flushInput();
+					ser.write(bytes('at sp4' + '\r\n', encoding = 'utf-8'))
+					print(ser.read(999).decode('utf-8'))
+					ser.flushInput();
+					ser.write(bytes('atrv' + '\r\n', encoding = 'utf-8'))
+					ser.flush();
+					jtout = ser.read(999).decode('utf-8')
+		
+					file.write(jtout+"\n")
+					if len(jtout)>2:
+						print("We might have a connection")
+					sleep(1)
+					print(errcont,'.Response: ',jtout)
+					errcont += 1
+
+				try:
+					while True:
+						s = input('Enter AT Command -->')
+						print('AT Command = ' + s)
+						ser.write(bytes(s + '\r\n', encoding = 'utf-8'))
+						ser.timeout = 1
+						response = ser.read(999).decode('utf-8')
+						print('Response: ' + response)
+				except KeyboardInterrupt:
+					print("Du sagde stop..")
+				finally:
+					ser.close()
+
+#				connection.start()
+				#with	open(filename,'a') as file:
+
+#				file.write('\n%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s'%(ecua,ecub,ecuc,ecud,ecue,ecuf,ecug,ecuh,ecui,ecuj,ecuk,ecul))
 					#d = integer, f=float, s=string, b=boolean/binary
-				time.sleep(120)
-				connection.stop()
+				#time.sleep(120)
+				#connection.stop()
 		except:
 			print("Connection not possible, error")
 	else:

@@ -6,9 +6,9 @@ sudo add-apt-repository ppa:deadsnakes/ppa
 sudo apt update
 
 echo "...Install pre-built dependencies from Apt"
-sudo apt-get install python3.7
+sudo apt-get install python3
 sudo apt-get install -y python3-pip
-sudo python -m pip install --upgrade pip setuptools wheel
+sudo python3 -m pip install --upgrade pip setuptools wheel
 sudo pip install -r ~/SuperbPi/requirements.txt
 
 

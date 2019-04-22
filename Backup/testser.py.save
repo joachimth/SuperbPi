@@ -2,12 +2,18 @@ import serial
 ser = serial.Serial("/dev/ttyAMA0")
 ser.baudrate = 115200
 
-
 def jt_init():
 	errcont=0
 	while(errcont<5):
 		ser.flushInput();
-		ser.write(bytes('atrv' + '\r\n', encoding = 'utf-8'))
+		ser.write(bytes('ATZ' + '\r\n', encoding = 'utf-8'))
+		ser.write(bytes('ATI' + '\r\n', encoding = 'utf-8'))
+		ser.write(bytes('ATH0' + '\r\n', encoding = 'utf-8'))
+		ser.write(bytes('ATRV' + '\r\n', encoding = 'utf-8'))
+		ser.write(bytes('0100' + '\r\n', encoding = 'utf-8'))
+		ser.write(bytes('010C' + '\r\n', encoding = 'utf-8'))
+		ser.write(bytes('0902' + '\r\n', encoding = 'utf-8'))
+
 		ser.flush();
 		ser.timeout = 1
 		jtout = ser.read(999).decode('utf-8')
@@ -18,18 +24,19 @@ def jt_init():
 	jt_comml()
 
 def jt_comml():
-	s = input('Enter AT Command -->')
+	s = input('...Enter AT Command -->')
 	#print('AT Command = ' + s)
 	ser.write(bytes(s + '\r\n', encoding = 'utf-8'))
 	ser.timeout = 1
 	response = ser.read(999).decode('utf-8')
-	print("...Response: " + response)
+ser.write(bytes('atrv' + '\r\n', encoding = 'utf-8'))
+	print('...Response: ' + response)
 
-#	qukk = input('Continue? q=quit')
-#	print('answer' + qukk)
-#	if(qukk != 'q'):
 	jt_comml()
 
+
+
 jt_init()
+
 ser.close()
 
