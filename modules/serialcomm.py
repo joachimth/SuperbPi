@@ -1,6 +1,6 @@
-#!/usr/bin/python3
+#! /usr/bin/python3
+# modules/serialcomm.py
 
-# serialcomm.py
 # Author: THIRSBRO
 # Year: 2019
 # Two main functions.
@@ -13,10 +13,12 @@
 #
 # always remember \r\n for return and newline. apparently it is needed to set encoding to utf-8
 #
-import math, sys, time
-import sercommcfg
+import sys
+import time
+sys.path.append('settings')
+import CustomConfig
 
-version = 0.1
+#version = 0.1
 
 #print(sercommcfg.SerCfg.port.__str__)
 #SerConn = serial.Serial(sercommcfg.SerCfg())

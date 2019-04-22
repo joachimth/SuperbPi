@@ -1,7 +1,7 @@
-#!/usr/bin/python3
-version = 0.1
+#! /usr/bin/python3
+# modules/CustomConfig.py
+#version = 0.1
 
-# sercommcfg.py
 # Author: THIRSBRO
 # Year: 2019
 # Config file for serialcomm.py.
@@ -22,25 +22,33 @@ version = 0.1
 # 8	ISO 15765-4 (CAN 11/250)
 # 9	ISO 15765-4 (CAN 29/250)
 # A	SAE J1939 (CAN 29/250)
-import serial
 
-class sercommcfg:
-    APP_NAME = "SuperbPi"
-    AUTHOR = "THIRSBRO"
-
+AppCustomConfig = {
+    "APP_NAME": "SuperbPi",
+    "AUTHOR": "THIRSBRO",
+    "VERSION": "0.1"
+}
         # Connecting direct to UART pins on RPI. Remember UART=1, and no console at serial.
         # Standard baudrate 38400..Freematics..115200..
         # Standard timeout = 0.1
 
-def ConnectSerial(nope):
-    conn = serial.Serial("/dev/ttyAMA0", '115200', '1')
-    return conn
+SerialUARTConfig = {
+    "Port": "/dev/ttyAMA0",
+    "Baudrate": "115200",
+    "Timeout": "1"
+}
 
-class SerCustomCfg:
-    # For Superb 1.gen, Protocol 3, 4 and 5 are the most interessting.
-    Protocol = 3
-    InitCommands = ["ATZ", "ATS0", "AT@1", "ATSI"]
-    TestPollSequence = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
+#def ConnectSerial(nope):
+#    conn = serial.Serial("/dev/ttyAMA0", '115200', '1')
+#    return conn
+
+
+# For Superb 1.gen, Protocol 3, 4 and 5 are the most interessting.
+SerialCARConfig = {
+    "Protocol": "3"
+    "InitCommands": ["ATZ", "ATS0", "AT@1", "ATSI"]
+    "TestPollSequence": ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
+}
 
 #if __name__ == '__main__':
     #env = sys.arg
