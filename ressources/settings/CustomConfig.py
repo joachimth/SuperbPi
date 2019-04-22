@@ -2,11 +2,11 @@
 
 # Author: THIRSBRO
 # Year: 2019
-# Config file for serialcomm.py.
+# Config file.
 #
 
 #OBD(portstr=None, baudrate=None, protocol=None, fast=True, timeout=0.1, check_voltage=True)
-#  
+#
 # Default speed	set	for	Freematics OBDII to	UART Android v1.
 #
 # ID	Name
@@ -23,12 +23,13 @@
 
 AppCustomConfig = {
     'APP_NAME': 'SuperbPi',
+    'MODULE_NAME': "CustomConfig",
     'AUTHOR': 'THIRSBRO',
     'VERSION': '0.1'
 }
-        # Connecting direct to UART pins on RPI. Remember UART=1, and no console at serial.
-        # Standard baudrate 38400..Freematics..115200..
-        # Standard timeout = 0.1
+# Connecting direct to UART pins on RPI. Remember UART=1, and no console at serial.
+# Standard baudrate 38400..Freematics..115200..
+# Standard timeout = 0.1
 
 SerialUARTConfig = {
     "Port": "/dev/ttyAMA0",
@@ -36,7 +37,7 @@ SerialUARTConfig = {
     "Timeout": "1"
 }
 
-#def ConnectSerial(nope):
+# def ConnectSerial(nope):
 #    conn = serial.Serial("/dev/ttyAMA0", '115200', '1')
 #    return conn
 
@@ -49,5 +50,5 @@ SerialCARConfig = {
     'Protocol': '3'
 }
 
-#if __name__ == '__main__':
-    #env = sys.arg
+# if __name__ == '__main__':
+#env = sys.arg

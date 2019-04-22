@@ -13,27 +13,21 @@
 # always remember \r\n for return and newline. apparently it is needed to set encoding to utf-8
 #
 
+import CustomConfig
+import serial
+import time
 import sys
 sys.path.append("/home/jt/SuperbPi")
 sys.path.append("/home/jt/SuperbPi/modules/settings")
-
-import time
-import serial
-
-import CustomConfig
+sys.path.append("/home/jt/SuperbPi/modules")
 
 
-
-#version = 0.1
-
-#print(sercommcfg.SerCfg.port.__str__)
 SerConn = serial.Serial(CustomConfig.SerialUARTConfig)
-#SerConn = CustomConfig..ConnectSerial("")
+
 
 def SerConnStart():
     try:
         # Starting connection.
-#        SerConn = serial.Serial(sercommcfg.SerCfg)
         SerConn.flushInput()
         SerConn.write(bytes('\r', encoding='utf-8'))
 
@@ -41,7 +35,7 @@ def SerConnStart():
         print(ErrorString)
 
 
-def SerConnWrite(self, DataToWrite):
+def SerConnWrite(DataToWrite):
     try:
         SerConn.flushInput()
         SerConn.write(bytes(DataToWrite + '\r\n', encoding='utf-8'))
@@ -61,19 +55,19 @@ def main():
         # Before anything we need to establish a connection has been made to the dongle.
         # We will be sending a \r = return. and listening for a >, in x amounts of seconds.
 
-        for i in sercommcfg.SerCustomCfg.InitCommands:
+        for i in CustomConfig.SerialCARConfig.InitCommands:
             SerConn.flushInput()
             SerConn.write(
-                bytes(sercommcfg.SerCustomCfg.InitCommands[i] + '\r\n', encoding='utf-8'))
+                bytes(CustomConfig.SerialCARConfig.InitCommands[i] + '\r\n', encoding='utf-8'))
             SerConnResp = SerConn.read(999).decode('utf-8')
             SerConn.flush()
 
             if len(SerConnResp) > 0:
-                    print("...Data is returned...")
-                    print("...Response >", SerConnResp)
+                print("...Data is returned...")
+                print("...Response >", SerConnResp)
 
-    except KeyboardInterrupt:
-        print("Du sagde stop..")
+    except Exception:
+        print(Exception)
 
     finally:
         SerConn.close()

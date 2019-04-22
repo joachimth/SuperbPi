@@ -1,9 +1,29 @@
 SuperbPi
 --------
 
+Install
+-------
 
-Total rewrite of a big mass up of other repos.
+Should be installed on a clean system with .\cleanstart.sh in ~ (Your home directory)
 
-Most have just been used as a starting platform.
+Req:
+- Python3
+- Pip for Python3.
+- Pyserial
+- ...
 
-Nothing's finished at all.
+Expected functions method:
+
+SuperbPi.py - Main function / loop / daemon for logging and so on.
+
+modules\serialcomm.py   - Handles serial communication and car communication.
+                        - Parses data back to Main function.
+
+ressources\CustomConfig.py - All settings which could be changed later on by the user.
+
+ressources\DataLog2File.py  - Not ready yet. Will simply put data to .csv file.
+
+ECU_def - Not used, perhaps will be used later on..
+
+Logs\ - This is where the log files will be placed.
+
