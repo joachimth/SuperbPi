@@ -8,7 +8,7 @@ version = 0.1
 #
 
 #OBD(portstr=None, baudrate=None, protocol=None, fast=True, timeout=0.1, check_voltage=True)
-#
+#  
 # Default speed	set	for	Freematics OBDII to	UART Android v1.
 #
 # ID	Name
@@ -22,13 +22,19 @@ version = 0.1
 # 8	ISO 15765-4 (CAN 11/250)
 # 9	ISO 15765-4 (CAN 29/250)
 # A	SAE J1939 (CAN 29/250)
-#import sys
+import serial
 
-class SerCfg:
-    port = '/dev/ttyAMA0'     # Connecting direct to UART pins on RPI. Remember UART=1, and no console at serial.
-    baudrate = '115200'            # Standard baudrate 38400..Freematics..115200..
-    timeout = '1'                  # Standard timeout = 0.1
+class sercommcfg:
+    APP_NAME = "SuperbPi"
+    AUTHOR = "THIRSBRO"
 
+        # Connecting direct to UART pins on RPI. Remember UART=1, and no console at serial.
+        # Standard baudrate 38400..Freematics..115200..
+        # Standard timeout = 0.1
+
+def ConnectSerial(nope):
+    conn = serial.Serial("/dev/ttyAMA0", '115200', '1')
+    return conn
 
 class SerCustomCfg:
     # For Superb 1.gen, Protocol 3, 4 and 5 are the most interessting.
@@ -36,3 +42,5 @@ class SerCustomCfg:
     InitCommands = ["ATZ", "ATS0", "AT@1", "ATSI"]
     TestPollSequence = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
 
+#if __name__ == '__main__':
+    #env = sys.arg

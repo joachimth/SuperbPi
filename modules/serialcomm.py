@@ -14,14 +14,13 @@
 # always remember \r\n for return and newline. apparently it is needed to set encoding to utf-8
 #
 import math, sys, time
-import serial
 import sercommcfg
-#
+
 version = 0.1
 
-#print(SerCfg)
-SerConn = serial.Serial(sercommcfg.SerCfg)
-
+#print(sercommcfg.SerCfg.port.__str__)
+#SerConn = serial.Serial(sercommcfg.SerCfg())
+SerConn = sercommcfg.ConnectSerial("")
 
 def SerConnStart():
     try:
