@@ -18,6 +18,8 @@ import serial
 import time
 import threading
 
+global SerConn
+
 ##########################################
 #Configurations settings,
 #will later be imported from config.file
@@ -25,14 +27,31 @@ import threading
 #Reminders/Notes:
 #For Superb 1.gen, Protocol 3, 4 and 5 are the most interessting.
 
-class SerialConfig():
-    def __init__(self):
-        self.OBDProtocol = 3
+class SerialConfig(*args):
+    def __init__(self, OBDProtocol:str,SERbaudrate: int,SERtimeout:int,InitArray:Array, TestPollSequence: List, OBDLogValues: List):
+        self.OBDProtocol = "3"
         self.SERbaudrate = 115200
         self.SERtimeout = 1
         self.InitArray = ["ATZ", "ATS0", "AT@1", "ATSI"]
         self.TestPollSequence = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
         self.OBDLogValues = ["010C","010D","010F"]
+ 
+##########################################
+# Functions sections.
+#
+###########################################
+#Reminders/Notes:
+#
+#
+
+def SerWriteFunction(self, DataToWrite, FirstWrite=True):
+    if FirstWrite == True:
+        self.FlushInput()
+        self.write(bytes(DataToWrite+'\r', encoding='utf-8'))
+    
+    if FirstWrite == False:
+        self.FlushInput()
+        self.write(bytes(DataToWrite+'\r', encoding='utf-8'))
 
 ##########################################
 # Main routines.
@@ -42,55 +61,42 @@ class SerialConfig():
 #
 #
 
+#SerWriteFunction(serial.Serial(""),"",True)
 
-SerConn = serial.Serial(CustomConfig.SerialUARTConfig)
+def serInit():
+    global SerConn
+    SerConn = serial.Serial(SerialConfig.SERbaudrate, SerialConfig.SERtimeout)
+    # Before anything we need to establish a connection has been made to the dongle.
+    # We will be sending a \r = return. and listening for a >, in x amounts of seconds.
 
-def SerConnStart():
-    try:
-        # Starting connection.
-        SerConn.flushInput()
-        SerConn.write(bytes('\r', encoding='utf-8'))
+    SerWriteFunction(SerConn,"",True)
 
-    except Exception as ErrorString:
-        print(ErrorString)
+    waitingSer=True
 
+    while waitingSer==True:
+        SerConnResp = SerConn.read(999).decode('utf-8')
+        SerConn.flush()
+        If SerConnResp == '>'
+            main()
+        else:
+            sleep(1)
+            print("We are still waiting for connection...")
 
-def SerConnWrite(DataToWrite):
-    try:
-        SerConn.flushInput()
-        SerConn.write(bytes(DataToWrite + '\r\n', encoding='utf-8'))
-    except Exception as ErrorString:
-        print(ErrorString)
-
-
-def SerConnInit():
-    try:
-        pass
-    except Exception as ErrorString:
-        print(ErrorString)
-
-
-def main():
-    try:
-        # Before anything we need to establish a connection has been made to the dongle.
-        # We will be sending a \r = return. and listening for a >, in x amounts of seconds.
-
-        for i in CustomConfig.SerialCARConfig.InitCommands:
+def main():    
+    while True:
+        for i in SerialConfig.InitArray:
+            SerWriteFunction(SerConn,"",True)
             SerConn.flushInput()
-            SerConn.write(
-                bytes(CustomConfig.SerialCARConfig.InitCommands[i] + '\r\n', encoding='utf-8'))
+            SerConn.write(bytes(SerialConfig.InitArray[i] + '\r\n', encoding='utf-8'))
             SerConnResp = SerConn.read(999).decode('utf-8')
             SerConn.flush()
 
             if len(SerConnResp) > 0:
                 print("...Data is returned...")
                 print("...Response >", SerConnResp)
-
-    except Exception:
-        print(Exception)
-
-    finally:
-        SerConn.close()
-
+        except Exception:
+            print(Exception)
+        finally:
+            SerConn.close()
 
 main()

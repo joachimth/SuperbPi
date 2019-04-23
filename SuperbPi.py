@@ -34,3 +34,11 @@
 # - Apparently it is needed to set encoding to utf-8 - Must be investigated.
 #
 
+import sys
+import serial
+import time
+import threading
+import
+from ser import copy(obj)
+main():
+    pass
