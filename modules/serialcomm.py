@@ -13,17 +13,16 @@
 # always remember \r\n for return and newline. apparently it is needed to set encoding to utf-8
 #
 
+import sys
+sys.path.append("./SuperbPi")
+sys.path.append("./SuperbPi/modules/settings")
+sys.path.append("./SuperbPi/modules")
+
 import CustomConfig
 import serial
 import time
-import sys
-sys.path.append("/home/jt/SuperbPi")
-sys.path.append("/home/jt/SuperbPi/modules/settings")
-sys.path.append("/home/jt/SuperbPi/modules")
-
 
 SerConn = serial.Serial(CustomConfig.SerialUARTConfig)
-
 
 def SerConnStart():
     try:
