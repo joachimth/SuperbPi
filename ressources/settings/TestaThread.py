@@ -1,3 +1,4 @@
+
 import time
 import threading
 import serial
@@ -5,11 +6,10 @@ import serial
 global SerConn
 global SerialOK
 
-SerialUARTConfig = ["/dev/ttyAMA0", "115200", "1"]
+#SerialUARTConfig = ["/dev/ttyAMA0", "115200", "1"]
 
-# def ConnectSerial(nope):
-#    conn = serial.Serial("/dev/ttyAMA0", '115200', '1')
-#    return conn
+# pylint: disable=wrong-import-order,wrong-import-position
+
 
 InitCommands = ["ATZ", "ATS0", "AT@1", "ATSI"]
 
@@ -60,7 +60,9 @@ my_thread = MyThread()
 my_thread.setDaemon(True)
 my_thread.start()
 
-SerConn = serial.Serial("/dev/ttyAMA0", 115200, 1)
+SerConn = serial.Serial("/dev/ttyAMA0")
+SerConn.baudrate = 115200
+SerConn.timeout = 1
 SerConn.setDaemon(True)
 SerConn.start()
 

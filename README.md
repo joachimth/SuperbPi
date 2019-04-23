@@ -26,4 +26,3 @@ ressources\DataLog2File.py  - Not ready yet. Will simply put data to .csv file.
 ECU_def - Not used, perhaps will be used later on..
 
 Logs\ - This is where the log files will be placed.
-

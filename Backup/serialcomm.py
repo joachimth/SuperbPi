@@ -14,34 +14,13 @@
 #
 
 import sys
+sys.path.append("./SuperbPi")
+sys.path.append("./SuperbPi/modules/settings")
+sys.path.append("./SuperbPi/modules")
+
+import CustomConfig
 import serial
 import time
-import threading
-
-##########################################
-#Configurations settings,
-#will later be imported from config.file
-##########################################
-#Reminders/Notes:
-#For Superb 1.gen, Protocol 3, 4 and 5 are the most interessting.
-
-class SerialConfig():
-    def __init__(self):
-        self.OBDProtocol = 3
-        self.SERbaudrate = 115200
-        self.SERtimeout = 1
-        self.InitArray = ["ATZ", "ATS0", "AT@1", "ATSI"]
-        self.TestPollSequence = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
-        self.OBDLogValues = ["010C","010D","010F"]
-
-##########################################
-# Main routines.
-#
-###########################################
-#Reminders/Notes:
-#
-#
-
 
 SerConn = serial.Serial(CustomConfig.SerialUARTConfig)
 
