@@ -43,16 +43,14 @@ from threading import Thread
 from time import sleep
 
 # Initialize an instance
-com = ComConnection(command='', baudrate=115200, timeout=1)
+com = ComConnection(command='ATZ', baudrate=115200, timeout=1)
 
 
 def read():
     while True:
         data = com.receive_command()
         if data:
-            if data == '>':
-                print("We have Init")
-	    print(data)
+            print(data)
         sleep(1)
 
 def write():
