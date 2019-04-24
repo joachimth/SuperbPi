@@ -44,8 +44,6 @@ from time import sleep
 
 # Initialize an instance
 com = ComConnection(command='ATZ', baudrate=115200)
-com.command = "ATI"
-com.send_command()
 
 def read():
     while True:
@@ -72,3 +70,6 @@ if __name__ == '__main__':
     t.start()
 
     write()
+
+    com.command = "ATI"
+    com.send_command()
