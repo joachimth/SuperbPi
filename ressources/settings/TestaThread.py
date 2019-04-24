@@ -27,7 +27,7 @@ class MyThread(threading.Thread):
     def SerConnWrite(self,DataToWrite):
         SerConn.flushInput()
         SerConn.write(bytes(DataToWrite + '\r\n', encoding='utf-8'))
-    
+    bytes('\r\n', encoding='utf-8')
     def __init__(self):
         threading.Thread.__init__(self)
         self.running = False

@@ -58,7 +58,7 @@ class ComConnection(object):
         if self.serial.is_open:
             try:
                 # Unicode strings must be encoded
-                data = self.command.encode('utf-8') + '\r\n'
+                data = self.command.encode('utf-8') + bytes('\r\n', encoding='utf-8')
                 self.serial.write(data)
             except Exception as ex:
                 self.handle_serial_error(ex)
