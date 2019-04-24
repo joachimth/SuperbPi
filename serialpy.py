@@ -45,7 +45,7 @@ class ComConnection(object):
             device = "/dev/ttyAMA0"
             self.serial.port = device
             # Set RTS line to low logic level
-            self.serial.rts = False
+            #self.serial.rts = False
             self.serial.timeout = 1
             self.serial.open()
         except Exception as ex:
@@ -58,7 +58,7 @@ class ComConnection(object):
         if self.serial.is_open:
             try:
                 # Unicode strings must be encoded
-                data = self.command.encode('utf-8')
+                data = self.command.encode('utf-8') + '\r\n'
                 self.serial.write(data)
             except Exception as ex:
                 self.handle_serial_error(ex)
