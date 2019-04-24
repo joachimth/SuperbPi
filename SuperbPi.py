@@ -43,7 +43,9 @@ from threading import Thread
 from time import sleep
 
 # Initialize an instance
-com = ComConnection(command='\r\n', baudrate=115200)
+com = ComConnection(command='ATZ', baudrate=115200)
+com.command("ATI")
+
 
 def read():
     while True:
@@ -59,7 +61,6 @@ def write():
     # If you try to call send_command() before call connect()
     # an exception will be raised inform you are trying to
     # send command in a closed connection
-    com.command = "ATZ"
     while True:
         com.send_command()
         sleep(1)
