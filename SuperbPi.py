@@ -59,8 +59,9 @@ def write():
     # If you try to call send_command() before call connect()
     # an exception will be raised inform you are trying to
     # send command in a closed connection
+    com.command = "ATZ"
     while True:
-        com.send_command("ATZ")
+        com.send_command()
         sleep(1)
 
 if __name__ == '__main__':
