@@ -60,7 +60,7 @@ def write():
     # an exception will be raised inform you are trying to
     # send command in a closed connection
     while True:
-        com.send_command()
+        com.send_command("ATZ")
         sleep(1)
 
 if __name__ == '__main__':
