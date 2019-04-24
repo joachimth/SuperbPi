@@ -34,7 +34,7 @@
 # - Apparently it is needed to set encoding to utf-8 - Must be investigated.
 #
 
-#import sys
+import sys
 #import serial
 #import time
 #import threading
@@ -43,7 +43,8 @@ from threading import Thread
 from time import sleep
 
 # Initialize an instance
-com = ComConnection(command='ATZ', baudrate=115200)
+com = ComConnection(command='ATZ', baudrate=115200, timeout=1)
+
 
 def read():
     while True:
@@ -52,7 +53,6 @@ def read():
             print(data)
         sleep(1)
 
-
 def write():
     com.connect()
 
@@ -60,7 +60,7 @@ def write():
     # an exception will be raised inform you are trying to
     # send command in a closed connection
     while True:
-        com.send_command = 'ATI'
+        com.send_command()
         sleep(1)
 
 if __name__ == '__main__':
@@ -70,5 +70,3 @@ if __name__ == '__main__':
     t.start()
 
     write()
-
-    com.command = "ATI"

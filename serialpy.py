@@ -6,7 +6,7 @@ from serial.tools.list_ports import comports
 class ComConnection(object):
     """Serial wrapper which can be instantiated using serial number"""
 
-    def __init__(self, command=None, baudrate=115200):
+    def __init__(self, command=None, baudrate=115200, timeout=1):
         """
         Constructor
 
@@ -17,12 +17,13 @@ class ComConnection(object):
         command: string
             Command to be send
         baudrate: int
-            Baud rate such as 9600 or 115200 etc. Default is 9600
+            Baud rate such as 9600 or 115200 etc. Default is 115200
         """
         #self.serial_number = serial_number
         self.command = command
         self.serial = Serial()
         self.serial.baudrate = baudrate
+        self.serial.timeout = timeout
 
     def __del__(self):
         """Destructor"""
@@ -42,12 +43,10 @@ class ComConnection(object):
         # open serial port
         try:
             #device = self.get_device_name(self.serial_number)
-            #device = "/dev/ttyAMA0"
-            self.serial = Serial("/dev/ttyAMA0")
+            device = "/dev/ttyAMA0"
+            self.serial.port = device
             # Set RTS line to low logic level
             #self.serial.rts = False
-            self.serial.baudrate = 115200
-            self.serial.timeout = 1
             self.serial.open()
         except Exception as ex:
             self.handle_serial_error(ex)
@@ -60,7 +59,7 @@ class ComConnection(object):
             try:
                 # Unicode strings must be encoded
                 data = bytes(self.command + '\r\n', encoding='utf-8')
-                self.serial.flushInput()
+                #self.serial.flushInput()
                 self.serial.write(data)
             except Exception as ex:
                 self.handle_serial_error(ex)
@@ -71,6 +70,7 @@ class ComConnection(object):
         """Receive command from serial port"""
         if self.serial.is_open:
             return self.serial.read_all()
+            #self.serial.flushInput()
 
     def close(self):
         """Close all resources"""
