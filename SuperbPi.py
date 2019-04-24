@@ -20,8 +20,8 @@
 #
 # - This version must be able to log data and store it.
 # - Only hardware used will be, RPI 2B and Freematics Arduino OBDIIUART v.1 dongle.
-# - 
-# - 
+# -
+# -
 # - Next level goal:
 # - Add simple fast GUI.
 #
@@ -42,6 +42,10 @@ from serialpy import ComConnection
 from threading import Thread
 from time import sleep
 
+InitCommands = ["","","","ATZ", "ATS0", "AT@1", "ATSI"]
+
+TestPollSeq = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
+
 # Initialize an instance
 com = ComConnection(command='', baudrate=115200, timeout=1)
 
@@ -52,18 +56,24 @@ def read():
         if data:
             if data == '>':
                 print("We have Init")
-	    print(data)
+            print(data)
         sleep(1)
 
-def write():
-    com.connect()
 
+def write():
     # If you try to call send_command() before call connect()
     # an exception will be raised inform you are trying to
     # send command in a closed connection
+    HaveInit=False
+    
     while True:
         com.send_command()
+        for i in InitCommands:
+            com.send_command = InitCommands[i]
+            print(read())
+            sleep(1)
         sleep(1)
+
 
 if __name__ == '__main__':
     t = Thread(target=read, args=())
@@ -71,4 +81,10 @@ if __name__ == '__main__':
     t.setDaemon(True)
     t.start()
 
-    write()
+    com.connect()
+
+    #write()
+
+    #for i in InitCommands:
+    #    write(InitComma[i])
+    #    sleep(1)
