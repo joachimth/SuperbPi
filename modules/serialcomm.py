@@ -14,10 +14,10 @@
 #
 
 import sys
-import serial
+import serial from Serial
 import time
 import threading
-
+import unit
 global SerConn
 
 ##########################################
@@ -35,7 +35,7 @@ class SerialConfig(*args):
         self.InitArray = ["ATZ", "ATS0", "AT@1", "ATSI"]
         self.TestPollSequence = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
         self.OBDLogValues = ["010C","010D","010F"]
- 
+
 ##########################################
 # Functions sections.
 #
@@ -48,7 +48,7 @@ def SerWriteFunction(self, DataToWrite, FirstWrite=True):
     if FirstWrite == True:
         self.FlushInput()
         self.write(bytes(DataToWrite+'\r', encoding='utf-8'))
-    
+
     if FirstWrite == False:
         self.FlushInput()
         self.write(bytes(DataToWrite+'\r', encoding='utf-8'))
@@ -68,7 +68,7 @@ def serInit():
     SerConn = serial.Serial(SerialConfig.SERbaudrate, SerialConfig.SERtimeout)
     # Before anything we need to establish a connection has been made to the dongle.
     # We will be sending a \r = return. and listening for a >, in x amounts of seconds.
-
+    print("Starting Init, sequence")
     SerWriteFunction(SerConn,"",True)
 
     waitingSer=True
@@ -76,13 +76,17 @@ def serInit():
     while waitingSer==True:
         SerConnResp = SerConn.read(999).decode('utf-8')
         SerConn.flush()
-        If SerConnResp == '>'
+        If len(SerConnResp) > 0:
+            print("It seems that we are connected")
             main()
         else:
             sleep(1)
             print("We are still waiting for connection...")
 
-def main():    
+def main():
+    print("Main loop has started")
+    serInit()
+    print("We are back from the init func")
     while True:
         for i in SerialConfig.InitArray:
             SerWriteFunction(SerConn,"",True)
@@ -90,7 +94,8 @@ def main():
             SerConn.write(bytes(SerialConfig.InitArray[i] + '\r\n', encoding='utf-8'))
             SerConnResp = SerConn.read(999).decode('utf-8')
             SerConn.flush()
-
+            print("Command sent:" + SerialConfig.InitArray[i])
+            sleep(1)
             if len(SerConnResp) > 0:
                 print("...Data is returned...")
                 print("...Response >", SerConnResp)

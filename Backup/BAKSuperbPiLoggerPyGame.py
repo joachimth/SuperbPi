@@ -62,10 +62,10 @@ def get_load(l):
 	if not l.is_null():
 		load = int(l.value.magnitude)
 
-connection.watch(obd.commands.SPEED, callback=get_speed)
-connection.watch(obd.commands.RPM, callback=get_rpm)
-connection.watch(obd.commands.ENGINE_LOAD, callback=get_load)
-connection.start("/dev/ttyAMA0",115200)
+#connection.watch(obd.commands.SPEED, callback=get_speed)
+#connection.watch(obd.commands.RPM, callback=get_rpm)
+#connection.watch(obd.commands.ENGINE_LOAD, callback=get_load)
+#connection.start("/dev/serial0",115200)
 running = True
 
 while running:
