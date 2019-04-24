@@ -34,11 +34,39 @@
 # - Apparently it is needed to set encoding to utf-8 - Must be investigated.
 #
 
-import sys
-import serial
-import time
-import threading
-import
-from ser import copy(obj)
-main():
-    pass
+#import sys
+#import serial
+#import time
+#import threading
+from serialpy import ComConnection
+from threading import Thread
+from time import sleep
+
+# Initialize an instance
+com = ComConnection(command='\r\n', baudrate=115200)
+
+def read():
+    while True:
+        data = com.receive_command()
+        if data:
+            print(data)
+        sleep(1)
+
+
+def write():
+    com.connect()
+
+    # If you try to call send_command() before call connect()
+    # an exception will be raised inform you are trying to
+    # send command in a closed connection
+    while True:
+        com.send_command()
+        sleep(1)
+
+if __name__ == '__main__':
+    t = Thread(target=read, args=())
+    # Make sure this thread will be killed when main program exits
+    t.setDaemon(True)
+    t.start()
+
+    write()
