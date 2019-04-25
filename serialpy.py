@@ -46,7 +46,7 @@ class ComConnection(object):
             device = "/dev/ttyAMA0"
             self.serial.port = device
             # Set RTS line to low logic level
-            #self.serial.rts = False
+            self.serial.rts = False
             self.serial.open()
         except Exception as ex:
             self.handle_serial_error(ex)
@@ -59,7 +59,7 @@ class ComConnection(object):
             try:
                 # Unicode strings must be encoded
                 data = bytes(self.command + '\r\n', encoding='utf-8')
-                #self.serial.flushInput()
+                self.serial.flushInput()
                 self.serial.write(data)
             except Exception as ex:
                 self.handle_serial_error(ex)
@@ -69,8 +69,8 @@ class ComConnection(object):
     def receive_command(self):
         """Receive command from serial port"""
         if self.serial.is_open:
-            return self.serial.read_all()
-            #self.serial.flushInput()
+            return self.serial.read(999).decode('utf-8')
+            self.serial.flush()
 
     def close(self):
         """Close all resources"""
