@@ -35,53 +35,52 @@
 #
 
 import sys
+#import serial
+#import time
+#import threading
 from serialpy import ComConnection
 from threading import Thread
 from time import sleep
+
+InitCommands = ["","","","ATZ", "ATS0", "AT@1", "ATSI"]
+
+TestPollSeq = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
+
 # Initialize an instance
 com = ComConnection(command='', baudrate=115200, timeout=1)
 
-InitCommands = ["","","","ATZ", "ATS0", "AT@1"] #, "ATSI"]
-InitCommands.reverse()
-
-TestPollSeq = ["ATRV", "0103", "0105", "010B", "010C", "010D", "010F"]
-TestPollSeq.reverse()
-global GoOnWrite
-global CurrentDataPollID
-CurrentDataPollID = 0
-GoOnWrite = 0
 
 def read():
-    global GoOnWrite
     while True:
         data = com.receive_command()
-        if data and len(data)>= 1:
+        if data:
+            #if data == '>':
+            #    print("We have Init")
             print(data)
-            GoOnWrite = 1
-        sleep(0.5)
+        sleep(1)
 
 def write():
-    global GoOnWrite
+    # If you try to call send_command() before call connect()
+    # an exception will be raised inform you are trying to
+    # send command in a closed connection
+    #HaveInit=False
+
     while True:
-        if len(InitCommands)> 0 and GoOnWrite==1:
-            v = InitCommands.pop()
-            com.command = v
-            com.send_command()
+        com.send_command() #Init everything...
 
-def Datapoll():
-    global CurrentDataPollID
-    if len(InitCommands) == 0 and GoOnWrite == 1:
-        if CurrentDataPollID > len(TestPollSeq):
-            CurrentDataPollID = 0 #Don't waste time if we have exceeded start from scratch.
+       # for i,v in enumerate(InitCommands):
+       #     print(v)
+       #     com.command = v
+       #     com.send_command()
+       #     sleep(1)
 
-        if CurrentDataPollID <= len(TestPollSeq):
-            v = TestPollSeq[CurrentDataPollID]
-            com.command = v
-            com.send_command()
-            CurrentDataPollID += 1
-            print(v)
+       # for i,v in enumerate(TestPollSeq):
+       #     print(v)
+       #     com.command = v
+       #     com.send_command()
+       #     sleep(1)
 
-        GoOnWrite = 0
+        sleep(1)
 
 if __name__ == '__main__':
     t = Thread(target=read, args=())
@@ -89,7 +88,17 @@ if __name__ == '__main__':
     t.setDaemon(True)
     t.start()
 
-    com.connect() #Connect firstly.
-    write()       #Write init sequence.
+    com.connect()
 
-    Datapoll()    #Start the datapolling at once, will first be active after init.
+        for i,v in enumerate(InitCommands):
+            print(v)
+            com.command = v
+            com.send_command()
+            sleep(1)
+
+
+    write()
+
+    #for i in InitCommands:
+    #    write(InitComma[i])
+    #    sleep(1)
